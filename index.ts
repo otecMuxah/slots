@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     ];
 
 
-    const renderReel = (source: string[]): string => {
+    const gatherHTMLReel = (source: string[]): string => {
         let tempString: string = '';
         for (let item of source) {
             tempString += `<li class="slot"><div class="${item}"></div></li>`
@@ -46,14 +46,17 @@ document.addEventListener("DOMContentLoaded", function() {
         return `<ul class="reel">${tempString}</ul>`
     }
 
+    const renderReel = () => {
+        let tempHTML: string = gatherHTMLReel(reelArray[0]) + gatherHTMLReel(reelArray[1]) + gatherHTMLReel(reelArray[2]);
+        const app: HTMLElement = document.getElementById('app');
+        app.innerHTML = tempHTML;
+    }
 
-    let tempHTML: string = renderReel(reelArray[0]) + renderReel(reelArray[1]) + renderReel(reelArray[2]);
-    const app: HTMLElement = document.getElementById('app');
-    app.innerHTML = tempHTML;
 
     let spinButton = document.getElementById('spin');
 
     const animateReels = () => {
+        setCurrentSlots();
         let reels = document.getElementsByClassName('reel');
         // FIXME - [...reels].forEach not working for some reason
         Array.prototype.forEach.call(reels, (el: HTMLElement) => {
@@ -78,11 +81,23 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const setCurrentSlots = (): void => {
-        Array.prototype.forEach.call(inputs, (el, i) => {
-            for(let i=0; i<numberOfReels; i++) {
-
+        Array.prototype.forEach.call(inputs, (el, idx) => {
+            if (idx < 3) {
+                let num = reelArray[idx].length-3;
+                reelArray[idx][num] = el.value;
             }
-        });
+            if (3 <= idx && idx < 6) {
+                let index = idx - 3;
+                let num = reelArray[index].length-2;
+                reelArray[index][num] = el.value;
+            }
+            if (6 <= idx && idx < 9) {
+                let index = idx - 6;
+                let num = reelArray[index].length-1;
+                reelArray[index][num] = el.value;
+            }
+         });
+        renderReel();
     }
     getCurrentSlots();
 });
