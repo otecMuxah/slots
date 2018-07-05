@@ -1,35 +1,163 @@
-.spinbtn, .bell, .cherry, .grape, .lemon,
-.orange
-{ display: inline-block; background: url('sprite.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+.spinbtn,
+.bell,
+.cherry,
+.grape,
+.lemon,
+.question,
+.orange {
+    display: inline-block;
+    background: url('sprite.png') no-repeat;
+    overflow: hidden;
+    text-indent: -9999px;
+    text-align: left;
+}
 
-.spinbtn { background-position: -0px -0px; width: 120px; height: 53px; }
-.bell { background-position: -0px -53px; width: 70px; height: 70px; }
-.cherry { background-position: -0px -123px; width: 70px; height: 70px; }
-.grape { background-position: -0px -193px; width: 70px; height: 70px; }
-.lemon { background-position: -0px -263px; width: 70px; height: 70px; }
-.orange { background-position: -0px -333px; width: 70px; height: 70px; }
+.spinbtn {
+    background-position: -0px -0px;
+    width: 120px;
+    height: 53px;
+    grid-area: butt;
+    align-self: center;
+    justify-self: center;
+}
+
+.question {
+    background-position: -0px -53px;
+    width: 75px;
+    height: 79px;
+}
+
+.bell {
+    background-position: -0px -132px;
+    width: 70px;
+    height: 67px;
+}
+
+.cherry {
+    background-position: -0px -202px;
+    width: 70px;
+    height: 70px;
+}
+
+.grape {
+    background-position: -0px -272px;
+    width: 70px;
+    height: 70px;
+}
+
+.lemon {
+    background-position: -0px -342px;
+    width: 70px;
+    height: 70px;
+}
+
+.orange {
+    background-position: -0px -412px;
+    width: 70px;
+    height: 70px;
+}
+
+.spinbtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.slots {
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+    grid-template-rows: 1fr 100px 1fr;
+    grid-template-areas:
+        "app butt inp"
+        "app fr inp"
+        "app fr inp"
+}
+@media screen and (max-width: 1050px) {
+    .slots {
+        grid-template-areas:
+            "app app app"
+            "butt butt butt"
+            "inp inp inp"
+    }
+}
+@media screen and (max-width: 600px) {
+    body .app-wrapper {
+        width: 320px;
+        height: 210px;
+        justify-self: center;
+    }
+    .spinbtn {
+        justify-self: center;
+        align-self: center;
+    }
+    .inputs {
+        justify-self: center;
+    }
+    body li {
+        width: 108px;
+        height: 62px;
+    }
+    body #app {
+        height: 182px;
+    }
+    li>div {
+        transform: scale(0.7);
+    }
+    body {
+        margin: 0;
+    }
+}
+
+.app-wrapper {
+    width: 600px;
+    height: 390px;
+    background: url('reelsBg.png') no-repeat;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: app
+}
+
 #app {
     display: flex;
-    width: 450px;
-    height: 450px;
+    height: 340px;
     overflow: hidden;
 }
+
 ul {
     display: table;
     padding: 0;
     margin: 0;
     list-style: none;
 }
+
+li>div {
+    background: #fff;
+    position: relative;
+}
+
 li {
-    width: 150px;
-    height: 150px;
-    flex: 0 0 150px;
+    width: 200px;
+    height: 113px;
+    flex: 0 0 111px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.reel li:last-child {
+
+}
+
 .inputs {
     display: flex;
     flex-wrap: wrap;
+    grid-area: inp;
+    justify-content: center;
+
 }
-.input {flex: 0 0 32%}
+
+.input {
+    width: 30%;
+    font-size: 24px;
+    text-align: center;
+}

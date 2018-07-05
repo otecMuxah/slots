@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var tempString = '';
         for (var _i = 0, source_1 = source; _i < source_1.length; _i++) {
             var item = source_1[_i];
-            tempString += "<li class=\"slot\"><div class=\"" + item + "\"></div></li>";
+            tempString += "<li class=\"slot\"><div class=\"question " + item + "\"></div></li>";
         }
         return "<ul class=\"reel\">" + tempString + "</ul>";
     };
@@ -47,22 +47,33 @@ document.addEventListener("DOMContentLoaded", function () {
         var app = document.getElementById('app');
         app.innerHTML = tempHTML;
     };
+    renderReel();
     var spinButton = document.getElementById('spin');
     var animateReels = function () {
-        setCurrentSlots();
         var reels = document.getElementsByClassName('reel');
+        var app = document.getElementById('app');
+        var appHeight = app.clientHeight;
+        reels[reels.length - 1].addEventListener('transitionend', function () {
+            spinButton.removeAttribute('disabled');
+        });
         // FIXME - [...reels].forEach not working for some reason
         Array.prototype.forEach.call(reels, function (el) {
+            var elementHeight = el.clientHeight;
+            //reset position
             el.style.transition = "none";
             var translate = "translate(0, 0)";
             el.style.transform = translate;
-            var elementHeight = el.clientHeight;
-            el.style.transition = "ease-out " + (elementHeight - 450) / 1000 + "s";
-            translate = "translate(0, -" + (elementHeight - 450) + "px)";
+            //scroll to the end
+            el.style.transition = "ease-out " + (elementHeight - appHeight) / 1000 + "s";
+            translate = "translate(0, -" + (elementHeight - appHeight) + "px)";
             el.style.transform = translate;
         });
     };
-    spinButton.addEventListener('click', animateReels);
+    spinButton.addEventListener('click', function () {
+        spinButton.setAttribute('disabled', 'true');
+        setCurrentSlots();
+        animateReels();
+    });
     var inputs = document.getElementsByClassName('input');
     var getCurrentSlots = function () {
         Array.prototype.forEach.call(inputs, function (el, i) {

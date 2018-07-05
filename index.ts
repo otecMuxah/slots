@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const gatherHTMLReel = (source: string[]): string => {
         let tempString: string = '';
         for (let item of source) {
-            tempString += `<li class="slot"><div class="${item}"></div></li>`
+            tempString += `<li class="slot"><div class="question ${item}"></div></li>`
         }
         return `<ul class="reel">${tempString}</ul>`
     }
@@ -51,26 +51,36 @@ document.addEventListener("DOMContentLoaded", function() {
         const app: HTMLElement = document.getElementById('app');
         app.innerHTML = tempHTML;
     }
-
+    renderReel();
 
     let spinButton = document.getElementById('spin');
 
     const animateReels = () => {
-        setCurrentSlots();
         let reels = document.getElementsByClassName('reel');
+        const app: HTMLElement = document.getElementById('app');
+        let appHeight = app.clientHeight;
+        reels[reels.length-1].addEventListener('transitionend',()=>{
+            spinButton.removeAttribute('disabled');
+        })
         // FIXME - [...reels].forEach not working for some reason
         Array.prototype.forEach.call(reels, (el: HTMLElement) => {
+            const elementHeight: number = el.clientHeight;
+            //reset position
             el.style.transition = `none`;
             let translate = `translate(0, 0)`;
             el.style.transform = translate;
-            const elementHeight: number = el.clientHeight;
-            el.style.transition = `ease-out ${(elementHeight - 450)/1000}s`;
-            translate = `translate(0, -${elementHeight - 450}px)`;
+            //scroll to the end
+            el.style.transition = `ease-out ${(elementHeight - appHeight)/1000}s`;
+            translate = `translate(0, -${elementHeight - appHeight}px)`;
             el.style.transform = translate;
         });
     }
 
-    spinButton.addEventListener('click',animateReels);
+    spinButton.addEventListener('click',()=>{
+        spinButton.setAttribute('disabled', 'true');
+        setCurrentSlots();
+        animateReels();
+    });
 
     let inputs = document.getElementsByClassName('input');
 
