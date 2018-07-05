@@ -1,0 +1,35 @@
+.spinbtn, .bell, .cherry, .grape, .lemon,
+.orange
+{ display: inline-block; background: url('sprite.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+
+.spinbtn { background-position: -0px -0px; width: 120px; height: 53px; }
+.bell { background-position: -0px -53px; width: 70px; height: 70px; }
+.cherry { background-position: -0px -123px; width: 70px; height: 70px; }
+.grape { background-position: -0px -193px; width: 70px; height: 70px; }
+.lemon { background-position: -0px -263px; width: 70px; height: 70px; }
+.orange { background-position: -0px -333px; width: 70px; height: 70px; }
+#app {
+    display: flex;
+    width: 450px;
+    height: 450px;
+    overflow: hidden;
+}
+ul {
+    display: table;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+li {
+    width: 150px;
+    height: 150px;
+    flex: 0 0 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inputs {
+    display: flex;
+    flex-wrap: wrap;
+}
+.input {flex: 0 0 32%}
