@@ -50,9 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
         var reels = document.getElementsByClassName('reel');
         // FIXME - [...reels].forEach not working for some reason
         Array.prototype.forEach.call(reels, function (el) {
+            el.style.transition = "none";
+            var translate = "translate(0, 0)";
+            el.style.transform = translate;
             var elementHeight = el.clientHeight;
             el.style.transition = "ease-out " + (elementHeight - 450) / 1000 + "s";
-            var translate = "translate(0, -" + (elementHeight - 450) + "px)";
+            translate = "translate(0, -" + (elementHeight - 450) + "px)";
             el.style.transform = translate;
         });
     };
@@ -65,6 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     var setCurrentSlots = function () {
         Array.prototype.forEach.call(inputs, function (el, i) {
+            for (var i_1 = 0; i_1 < numberOfReels; i_1++) {
+            }
         });
     };
     getCurrentSlots();

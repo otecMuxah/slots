@@ -57,9 +57,12 @@ document.addEventListener("DOMContentLoaded", function() {
         let reels = document.getElementsByClassName('reel');
         // FIXME - [...reels].forEach not working for some reason
         Array.prototype.forEach.call(reels, (el: HTMLElement) => {
+            el.style.transition = `none`;
+            let translate = `translate(0, 0)`;
+            el.style.transform = translate;
             const elementHeight: number = el.clientHeight;
             el.style.transition = `ease-out ${(elementHeight - 450)/1000}s`;
-            let translate = `translate(0, -${elementHeight - 450}px)`;
+            translate = `translate(0, -${elementHeight - 450}px)`;
             el.style.transform = translate;
         });
     }
