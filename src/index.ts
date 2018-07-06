@@ -2,10 +2,10 @@ import './style.css';
 
 document.addEventListener("DOMContentLoaded", function () {
     const validSlotItems: string[] = ['grape', 'lemon', 'orange', 'cherry', 'bell'];
-    const numberOfReels: number = 3;
-    const slotsShownPerReel: number = 3;
+    const numberOfReels = 3;
+    const slotsShownPerReel = 3;
     const spinButton = document.getElementById('spin');
-    const inputs = document.getElementsByClassName('input');
+    let inputs: HTMLCollectionOf<Element>;
     let reelArray: string[][] = [];
     let currentItems: string[];
 
@@ -14,11 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
         //argument 0 - array where from to get items to randomize
         //argument 1 - random array length
         //retuns new random array
-        const range: any[] = [];
-        range.length = length;
+
         let tempArray: string[] = [];
 
-        for (let item of range) {
+        for (let i = 0; i < length; i++ ) {
             tempArray.push(validSlotItems[Math.floor(Math.random() * validSlotItems.length)])
         };
 
@@ -30,11 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
         //argument 0 - number of reels to build
         let i = 0;
         let numberOfFrames = 20;
+        const framesIncrement = 5;
+
         while (i < numberOfArrays) {
             reelArray[i] = buildRandomArray(validSlotItems, numberOfFrames);
             //adding frames to next reel to make it stop consistently, one by one,
             //while keeping almost the same frame rate to each other
-            numberOfFrames += 5;
+            numberOfFrames += framesIncrement;
             i++;
         }
     }
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //animate reels from start to the end
         const reels: HTMLCollectionOf<Element> = document.getElementsByClassName('reel');
         const app: HTMLElement = document.getElementById('app');
-        const appHeight = app.clientHeight;
+        const appHeight: number = app.clientHeight;
         //listen for antimation stops, to enable spin button
         reels[reels.length - 1].addEventListener('transitionend', () => {
             spinButton.removeAttribute('disabled');
@@ -89,14 +90,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const getCurrentSlots = (): void => {
         //read slots on app start and save to inputs
-        [...inputs].forEach((el: any, i: any) => {
+        [...inputs].forEach((el: any, i: number) => {
             el.value = currentItems[i];
         });
     }
 
     const setCurrentSlots = (): void => {
         //read values from all nine inputs and save them to the end of each reel
-        [...inputs].forEach((el: any, idx: any) => {
+        [...inputs].forEach((el: any, idx: number) => {
             if (idx < 3) {
                 let num = reelArray[idx].length - 3;
                 reelArray[idx][num] = el.value;
@@ -114,6 +115,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         renderReel();
     }
+    const renderInputs = () => {
+        let tempHTML = '';
+        const numberOfInputs: number = numberOfReels * slotsShownPerReel;
+        for (let i = 0; i < numberOfInputs; i++) {
+            tempHTML += `<input type="text" class="input">`;
+        }
+        document.getElementById('inputs').innerHTML = tempHTML;
+        inputs = document.getElementsByClassName('input');
+    }
 
     spinButton.addEventListener('click', () => {
         //disable button after click , apply desiered result to end of reel and start animation
@@ -122,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         animateReels();
     });
 
+    renderInputs();
     buildReel(numberOfReels);
     currentItems = readCurrentSlots();
     renderReel();
