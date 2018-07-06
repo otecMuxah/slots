@@ -7,7 +7,7 @@ to run developer envoirment:
 
 to run game:
 open
-```src/index.html```
+```dist/index.html```
 in browser
 
 ### features

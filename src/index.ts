@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         renderReel();
     }
+
     const renderInputs = () => {
         let tempHTML = '';
         const numberOfInputs: number = numberOfReels * slotsShownPerReel;
