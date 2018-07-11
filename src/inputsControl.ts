@@ -46,7 +46,8 @@ export class InputsControl {
                 config.reelArray[index][num] = el.value;
             }
         });
-        buildReels.prototype.renderReel();
+        let builder: buildReels = new buildReels(config.numberOfReels);
+        builder.renderReel();
     }
 
     
