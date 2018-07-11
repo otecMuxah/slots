@@ -5,6 +5,7 @@ interface Config {
     reelArray: string[][];
     currentItems: string[];
     app: HTMLElement;
+    spinButt: HTMLElement;
     inputs: HTMLCollectionOf<Element>;
 }
 
@@ -15,7 +16,8 @@ export let config: Config = {
     reelArray : [],
     currentItems: [],
     app : null,
-    inputs: null
+    inputs: null,
+    spinButt: document.getElementById('spin'),
 }
 
     
