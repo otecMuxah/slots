@@ -1,16 +1,17 @@
-import { Config } from './configObj';
+import { config } from './config';
 import { buildReels } from './buildReels';
 import { InputsControl } from './inputsControl';
 
 export class SlotsGame {
-    config: Config
     constructor(reels: number, visibleSlotsOnReel: number, target: HTMLElement) {
-        this.config = new Config(reels, visibleSlotsOnReel, target);
+        config.numberOfReels = reels;
+        config.slotsShownPerReel = visibleSlotsOnReel;
+        config.app = target;
         let Inputs: InputsControl = new InputsControl;
-        let builder: buildReels = new buildReels(this.config.numberOfReels);
+        let builder: buildReels = new buildReels(config.numberOfReels);
         Inputs.renderInputs();
         builder.buildReel();
-        this.config.currentItems = Inputs.readCurrentSlots();
+        config.currentItems = Inputs.readCurrentSlots();
         builder.renderReel();
         Inputs.getCurrentSlots();
     }

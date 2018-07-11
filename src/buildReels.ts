@@ -1,4 +1,4 @@
-import { Config } from './configObj'
+import { config } from './config'
 
 
 export class buildReels {
@@ -14,7 +14,7 @@ export class buildReels {
         const framesIncrement = 5;
 
         while (i < this.numberOfArrays) {
-            Config.prototype.reelArray[i] = this.buildRandomArray(Config.prototype.validSlotItems, numberOfFrames);
+            config.reelArray[i] = this.buildRandomArray(config.validSlotItems, numberOfFrames);
             //adding frames to next reel to make it stop consistently, one by one,
             //while keeping almost the same frame rate to each other
             numberOfFrames += framesIncrement;
@@ -33,7 +33,7 @@ export class buildReels {
     }
     renderReel = (): void => {
         let tempHTML: string;
-        tempHTML = this.gatherHTMLReel(Config.prototype.reelArray[0]) + this.gatherHTMLReel(Config.prototype.reelArray[1]) + this.gatherHTMLReel(Config.prototype.reelArray[2]);
+        tempHTML = this.gatherHTMLReel(config.reelArray[0]) + this.gatherHTMLReel(config.reelArray[1]) + this.gatherHTMLReel(config.reelArray[2]);
         const app: HTMLElement = document.getElementById('app');
         app.innerHTML = tempHTML;
     }
@@ -45,7 +45,7 @@ export class buildReels {
         let tempArray: string[] = [];
 
         for (let i = 0; i < length; i++ ) {
-            tempArray.push(Config.prototype.validSlotItems[Math.floor(Math.random() * Config.prototype.validSlotItems.length)])
+            tempArray.push(config.validSlotItems[Math.floor(Math.random() * config.validSlotItems.length)])
         };
 
         return tempArray;
