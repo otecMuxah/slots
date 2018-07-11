@@ -17,9 +17,9 @@ export class SlotsGame {
         config.currentItems = Inputs.readCurrentSlots();
         builder.renderReel();
         Inputs.getCurrentSlots();
-        document.getElementById('spin').addEventListener('click', () => {
+        config.spinButt.addEventListener('click', () => {
             //disable button after click , apply desiered result to end of reel and start animation
-            document.getElementById('spin').setAttribute('disabled', 'true');
+            config.spinButt.setAttribute('disabled', 'true');
             Inputs.setCurrentSlots();
             animation.animateReels();
         });
