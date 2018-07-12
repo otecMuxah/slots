@@ -7,6 +7,11 @@ module.exports = {
     entry: './src/index.ts',
     devtool: 'inline-source-map',
     mode: 'development',
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 3000
+    },
     module: {
         rules: [{
                 test: /\.tsx?$/,

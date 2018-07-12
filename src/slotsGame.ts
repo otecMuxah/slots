@@ -9,14 +9,17 @@ export class SlotsGame {
         config.numberOfReels = reels;
         config.slotsShownPerReel = visibleSlotsOnReel;
         config.app = target;
+
         let Inputs: InputsControl = new InputsControl;
         let builder: buildReels = new buildReels(config.numberOfReels);
         let animation: AnimateReels = new AnimateReels;
+
         Inputs.renderInputs();
         builder.buildReel();
         config.currentItems = Inputs.readCurrentSlots();
         builder.renderReel();
         Inputs.getCurrentSlots();
+
         config.spinButt.addEventListener('click', () => {
             //disable button after click , apply desiered result to end of reel and start animation
             config.spinButt.setAttribute('disabled', 'true');
