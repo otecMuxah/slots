@@ -3,7 +3,7 @@
 ## installation
 to run developer envoirment:
 ```npm i```
-to build game
+to build game and run
 ```npm start```
 
 to run game:
